@@ -1,0 +1,30 @@
+{
+    "name": "sphinxapi",
+    "version": "0.0.1",
+    "author": "Nicolas Thouvenin <nthouvenin@gmail.com>",
+    "contributors": [],
+    "description": "",
+    "tags": [
+        "sphinx",
+        "search"
+    ],
+    "homepage": "http://github.com/touv/node-sphinxapi",
+    "scripts": {
+        "test": "nodeunit test/"
+    },
+    "main": "./sphinxapi.js",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/touv/sphinxapi.git"
+    },
+    "dependencies": {
+        "bufferpack": ">=0.0.6"
+    },
+    "devDependencies": {
+        "nodeunit": ">=0.7.3"
+    },
+    "license": "MIT",
+    "engines": {
+        "node": ">=0.6.4"
+    }
+}
