@@ -5,12 +5,12 @@ implementation. It's also respects NodeJS code convention.
 
 # Installation
 
-comming soon ...
+coming soon ...
 
 
 # Examples
 
-comming soon ...
+coming soon ...
 
 
 # API Documentation
