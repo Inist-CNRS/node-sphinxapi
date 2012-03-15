@@ -4,7 +4,7 @@ var SphinxClient = require ("../lib/sphinxapi.js"),
 	assert = require('assert');
 
 var cl = new SphinxClient();
-cl.Status(function(err) {
+cl.Status(function(err, result) {
 		assert.ifError(err);
-		console.log('Status is OK');
+		console.log(result);
 })
