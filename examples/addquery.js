@@ -3,7 +3,9 @@
 var SphinxClient = require ("../lib/sphinxapi.js"),
 	assert = require('assert');
 
-var cl = new SphinxClient();
-var r = cl.AddQuery('test');
+var r,cl = new SphinxClient();
+r = cl.AddQuery('test');
+console.log(r);
+r = cl.AddQuery('truc');
 console.log(r);
 
