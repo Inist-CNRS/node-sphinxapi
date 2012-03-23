@@ -1,0 +1,11 @@
+<?php
+$version  = explode(',',getenv('APPNAME_VERSION'));
+$nofollow = explode(',',getenv('APPNAME_LOG2MAIL_NOFOLLOW'));
+?>
+
+<?php if (in_array('prod', $version) && !in_array('mysql', $nofollow)) { ?>
+file = <?php echo getenv('APPNAME_HOME') ?>/var/log/mysql/error.log
+  template = <?php echo getenv('APPNAME_HOME') ?>/etc/log2mail/mail-mysql
+  pattern = ""
+  mailto = <?php echo getenv('APPNAME_ADMIN_MAIL') ?> 
+<?php } ?>

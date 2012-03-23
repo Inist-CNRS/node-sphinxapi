@@ -1,0 +1,9 @@
+#!/bin/sh
+#!/bin/sh
+
+# chargement de tous les fichiers de profile
+for i in <?php echo getenv('APPNAME_HOME') ?>/etc/profile.d/* ; do
+  if [ -r "$i" ]; then
+    . $i
+  fi
+done

@@ -1,0 +1,12 @@
+From: %f
+To: %t
+Subject: [<?php echo getenv('APPNAME'); ?>][mysql] log2mail matched your pattern: %m
+
+Hello!
+
+We have matched your pattern "%m" in "%F" %n times:
+
+%l
+
+Yours,
+log2mail.

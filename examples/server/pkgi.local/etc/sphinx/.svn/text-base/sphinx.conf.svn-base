@@ -1,0 +1,13 @@
+#
+# Sphinx configuration file sample
+#
+
+<?php
+foreach( glob(getenv('APPNAME_HOME').'/etc/sphinx/conf.d/*.conf') as $f) {
+	echo "# {{{ $f \n";
+	echo file_get_contents($f);
+	echo "# }}}\n\n\n";
+}
+?>
+
+# --eof--

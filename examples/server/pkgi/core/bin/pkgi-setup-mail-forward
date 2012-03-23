@@ -1,0 +1,36 @@
+<?php echo '#!/bin/bash'; ?> 
+
+FILE_FORWARD=<?php echo getenv('APPNAME_HOME') ?>/.forward
+TMP_FILE=`tempfile -d <?php echo getenv('APPNAME_HOME') ?>/tmp`
+
+case ${1} in
+    --uninstall)
+        if [ -f "$FILE_FORWARD" ]; then
+            grep -v "<?php echo getenv('APPNAME_ADMIN_MAIL') ?>" $FILE_FORWARD > $TMP_FILE
+            if [ "`diff $TMP_FILE $FILE_FORWARD`" != "" ]; then
+                cp -f $TMP_FILE $FILE_FORWARD
+                echo "<?php echo getenv('APPNAME_ADMIN_MAIL') ?> removed from $FILE_FORWARD"
+            else
+                echo "<?php echo getenv('APPNAME_ADMIN_MAIL') ?> not found in $FILE_FORWARD"
+                exit 0
+            fi
+            rm -f $TMP_FILE
+        else
+            echo "$FILE_FORWARD doesn't exist"
+            exit 1
+        fi
+    ;;
+
+    --install|*)
+        NOT_INSTALLED=`grep "<?php echo getenv('APPNAME_ADMIN_MAIL') ?>" $FILE_FORWARD 2&>/dev/null`
+        if [ "$NOT_INSTALLED" == "" ]; then
+            echo "<?php echo getenv('APPNAME_ADMIN_MAIL') ?>" >> $FILE_FORWARD
+            echo "<?php echo getenv('APPNAME_ADMIN_MAIL') ?> added to $FILE_FORWARD"
+        else
+            echo "<?php echo getenv('APPNAME_ADMIN_MAIL') ?> already in $FILE_FORWARD"
+            exit 0
+        fi
+    ;;
+esac
+
+exit 0

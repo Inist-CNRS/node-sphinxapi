@@ -1,0 +1,13 @@
+# Defaults for searchd initscript
+
+# Additional options that are passed to the Daemon.
+DAEMON_OPTS="-c <?php echo getenv('APPNAME_HOME') ?>/etc/sphinx/sphinx.conf"
+
+# System account to run the searchd server under. 
+#DAEMONUSER="<?php echo getenv('APPNAME_USER'); ?>"
+
+# Server log file
+#LOGFILE=
+
+# Start the demon
+RUN=yes

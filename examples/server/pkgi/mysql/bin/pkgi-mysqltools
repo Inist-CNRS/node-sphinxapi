@@ -1,0 +1,233 @@
+<?php echo '#!/bin/bash'; ?> 
+
+case ${1} in
+
+    -q | -query | query)
+    # Se connecter à la base
+        shift 1
+        <?php echo getenv('APPNAME_HOME') ?>/usr/bin/mysql $*
+    ;;
+
+    -d | -dump | dump)
+        shift 1
+        <?php echo getenv('APPNAME_HOME') ?>/usr/bin/mysqldump $* 
+    ;;
+
+    -b | -backup | backup)
+        shift 1
+        APP_HOME=<?php echo getenv('APPNAME_HOME') ?> 
+        
+        # test si la base de données est démarrée
+        echo "" | $APP_HOME/usr/bin/mysql
+        MYSQL_STARTED=$?
+        if [ "$MYSQL_STARTED" != "0" ]; then
+            exit $MYSQL_STARTED
+        fi
+        
+        # récupère la liste des tables a dumper
+        APP_BASES=`echo "SHOW DATABASES;" | $APP_HOME/usr/bin/mysql \
+                | grep -v "^Database$" \
+                | grep -v "^information_schema$" \
+                | grep -v "^mysql$"`
+        if [ "$APP_BASES" == "" ]; then
+            echo "Rien à dumper car aucune base de données trouvée."  >&2
+            exit 1;
+        fi
+        
+        # dump des tables trouvées
+        $APP_HOME/usr/bin/mysqldump --databases $APP_BASES $*
+    ;;
+    
+    -bc | -backup-cron | backup-cron)
+        shift 1
+        if [ "$1" != "install" ]; then
+            if [ "$1" != "uninstall" ]; then
+                echo "Indiquez si vous désirez installer ou désinstaller la crontab de sauvegarde de la base mysql" >&2
+                echo "Rajoutez sur la ligne de commande 'install' ou 'uninstall'" >&2
+                exit 1
+            else
+                rm -f <?php echo getenv('APPNAME_HOME') ?>/etc/cron.d/mysql-backup
+            fi
+        else
+            echo "<?php echo rand(0,59); ?> 3 * * * <?php echo getenv('APPNAME_HOME') ?>/bin/pkgi-mysqlbackup" > <?php echo getenv('APPNAME_HOME') ?>/etc/cron.d/mysql-backup
+            <?php pkgi_track_instance(getenv('APPNAME_HOME').'/etc/cron.d/mysql-backup'); ?> 
+        fi
+    ;;
+
+    -i | -init | init)
+        # Initialisation de la base avec creation et reglage de l'utilisateur de maintenance: debian-sys-maint
+
+        # On vérifie si le démon tourne ou pas pour éventuellement le relancer après la phase d'initialisation
+        # qui va obligatoirement l'éteindre
+        <?php echo getenv('APPNAME_HOME') ?>/etc/init.d/mysql status
+        MYSQL_WAS_STARTED=$?
+        
+        # Le serveur doit être éteint pour l'oppération
+        <?php echo getenv('APPNAME_HOME') ?>/etc/init.d/mysql stop > /dev/null
+        if [ "$?" != "0" ]; then
+            echo "Database cannot be initialized because mysql server cannot be stopped..." >&2
+            exit 1
+        fi
+        <?php echo getenv('APPNAME_HOME') ?>/usr/bin/mysql_install_db > /dev/null
+
+        # reglage du mot de passe debian-sys-maint
+        pass="`sed -n 's/^[ 	]*password *= *// p'  <?php echo getenv('APPNAME_HOME') ?>/etc/mysql/debian.cnf | sed 's/\s// p' | head -n 1`"
+        tfile=`mktemp`
+        if [ ! -f "$tfile" ]; then
+            echo "Erreur inattendue"  >&2
+            exit 1
+        fi
+        cat << EOF > $tfile
+USE mysql;
+REPLACE INTO user SET host='localhost', user='debian-sys-maint', password=password('$pass'), Select_priv='Y', Insert_priv='Y', Update_priv='Y', Delete_priv='Y', Create_priv='Y', Drop_priv='Y', Reload_priv='Y', Shutdown_priv='Y', Process_priv='Y',  File_priv='Y', Grant_priv='Y', References_priv='Y', Index_priv='Y', Alter_priv='Y', Show_db_priv='Y', Super_priv='Y', Create_tmp_table_priv='Y', Lock_tables_priv='Y', Execute_priv='Y', Repl_slave_priv='Y', Repl_client_priv='Y', Create_user_priv='Y', Alter_routine_priv='Y', Create_routine_priv='Y', Show_view_priv='Y', Create_view_priv='Y';
+EOF
+        MYSQL_BOOTSTRAP="<?php echo getenv('APPNAME_HOME') ?>/usr/sbin/mysqld --bootstrap --datadir=<?php echo getenv('APPNAME_HOME') ?>/var/lib/mysql --skip-grant-tables --skip-innodb"
+        $MYSQL_BOOTSTRAP <$tfile
+        if [ "$?" != "0" ]; then
+            echo "Error: debian-sys-maint cannot be created." >&2
+            rm -f $tfile
+            exit 1
+        else
+            echo "Database has been initialized"
+            rm -f $tfile
+            
+            # On démarre le démon si il l'était avant l'exécution de ce script
+            if [ "$MYSQL_WAS_STARTED" == 0 ]; then
+                <?php echo getenv('APPNAME_HOME') ?>/etc/init.d/mysql start
+            fi
+        fi
+    ;;
+
+    -postinst-init | postinst-init)
+        # Cette option est appelée par le build de pkgi lorsque le build est terminé (postinst)
+        # son but est d'initialiser la base de donnée uniquement si c'est necessaire
+        # le fichier tmp/mysql-init-flag est positionné par l'instanciation du fichier etc/mysql/debian.cnf
+        if [ -f <?php echo getenv('APPNAME_HOME') ?>/tmp/mysql-init-flag ]; then
+            <?php echo getenv('APPNAME_HOME') ?>/bin/<?php echo basename(__FILE__); ?> init  2>&1
+            rm -f <?php echo getenv('APPNAME_HOME') ?>/tmp/mysql-init-flag
+        fi
+        <?php if (strtolower(trim(getenv('APPNAME_MYSQL_AUTOBACKUP'))) == 'yes') { ?>
+        <?php echo getenv('APPNAME_HOME') ?>/bin/pkgi-mysqltools -backup-cron install
+        <?php } else { ?>
+        <?php echo getenv('APPNAME_HOME') ?>/bin/pkgi-mysqltools -backup-cron uninstall
+        <?php } ?>
+    ;;
+
+    -rp | -rootpassword | rootpassword)
+        # initialisation du mot de passe root
+        if [ ${#} -lt 2 ]; then
+            echo "Error: missing parameter (root password)." >&2
+            echo "Example: bin/pkgi-mysqltools rootpassword a13fz22" >&2
+            exit 1
+        fi
+        <?php echo getenv('APPNAME_HOME') ?>/etc/init.d/mysql stop > /dev/null
+        if [ "$?" != "0" ]; then
+            echo "Root password cannot be changed because mysql server cannot be stopped..." >&2
+            exit 1
+        fi
+        ROOT_PASSWORD=$2
+        MYSQL_BOOTSTRAP="<?php echo getenv('APPNAME_HOME') ?>/usr/sbin/mysqld --bootstrap --datadir=<?php echo getenv('APPNAME_HOME') ?>/var/lib/mysql --skip-grant-tables --skip-innodb"
+        tfile=`mktemp`
+        if [ ! -f "$tfile" ]; then
+            return 1
+        fi
+        cat << EOF > $tfile
+USE mysql;
+UPDATE user SET password=PASSWORD("$ROOT_PASSWORD") WHERE user='root';
+FLUSH PRIVILEGES;
+EOF
+        $MYSQL_BOOTSTRAP <$tfile
+        if [ "$?" != "0" ]; then
+            echo "Root password cannot be changed because mysql database has not been initialized." >&2
+            echo "Please firstly initialize the mysql database: bin/pkgi-mysqltools init" >&2
+            rm -f $tfile
+            exit 1
+        else
+            echo "Root password has been initialized to $ROOT_PASSWORD"
+            rm -f $tfile
+        fi
+    ;;
+
+    -mr | -makeroot | makeroot)
+        if [ ${#} -lt 2 ] ; then
+            echo "Error: missing parameter (hostname)." >&2
+            echo "Example: bin/mysqltools -mr gully.ads.intra.inist.fr" >&2
+            exit 1
+        fi
+        MRHOST=${2}
+        cat <?php echo getenv('APPNAME_HOME') ?>/etc/mysql/mysql-makeroot.sql | sed s/{HOST}/${MRHOST}/g | <?php echo getenv('APPNAME_HOME') ?>/usr/bin/mysql mysql
+        echo "Now ${MRHOST} should be allowed to connect as root to the database (using phpmyadmin for example)"
+        echo "Query was :"
+        cat <?php echo getenv('APPNAME_HOME') ?>/etc/mysql/mysql-makeroot.sql | sed s/{HOST}/${MRHOST}/g
+    ;;
+
+    -t | -copyto | copyto )
+        # Copie des bases sur un autre serveur
+        if [ ${#} -lt 2 ]; then
+            exit 1
+        fi
+        if [ ${#} -eq 3 ] ; then
+            BASES="--databases ${3}"
+        else
+            BASES="--all-databases"
+        fi
+        REMOTE_HOST=`echo "${2}" | cut -d":" -f 1 `
+        REMOTE_PORT=`echo "${2}"  | cut -d":" -f 2 `
+        if [ "${REMOTE_PORT}" = "${REMOTE_HOST}" ] ; then
+            REMOTE_PORT="3306"
+        fi
+        <?php echo getenv('APPNAME_HOME') ?>/usr/bin/mysql --user=root --password= --host=${REMOTE_HOST} --port=${REMOTE_PORT} -e "exit" 
+        if [ ${?} -ne 0 ] ; then
+            exit 1
+        else
+			TMPFILE=`TMPDIR=<?php echo getenv('APPNAME_HOME') ?>/tmp && mktemp`
+            <?php echo getenv('APPNAME_HOME') ?>/usr/bin/mysqldump --opt ${BASES} > ${TMPFILE}
+			<?php echo getenv('APPNAME_HOME') ?>/usr/bin/mysql --user=root --password= --host=${REMOTE_HOST} --port=${REMOTE_PORT} < ${TMPFILE}
+			rm -f ${TMPFILE}
+        fi
+    ;;
+
+    -f | -copyfrom | copyfrom)
+        # Récupération des bases d'un autre serveur
+        if [ ${#} -lt 2 ] ; then
+            exit ${RC_ERR_PARAM}
+        fi
+        if [ ${#} -eq 3 ] ; then
+            BASES="--databases ${3}"
+        else
+            BASES="--all-databases"
+        fi
+        REMOTE_HOST=`echo "${2}" | cut -d":" -f 1 `
+        REMOTE_PORT=`echo "${2}"  | cut -d":" -f 2 `
+        if [ "${REMOTE_PORT}" = "${REMOTE_HOST}" ] ; then
+            REMOTE_PORT="3306"
+        fi
+        <?php echo getenv('APPNAME_HOME') ?>/usr/bin/mysql --user=root --password= --host=${REMOTE_HOST} --port=${REMOTE_PORT} -e "exit" 
+        if [ ${?} -ne 0 ] ; then
+            exit 1
+        else
+            <?php echo getenv('APPNAME_HOME') ?>/usr/bin/mysqldump --user=root --password= --host=${REMOTE_HOST} --port=${REMOTE_PORT} --opt ${BASES} | cat | <?php echo getenv('APPNAME_HOME') ?>/usr/bin/mysql
+        fi
+    ;;
+
+    *)
+        # parametre invalide
+        echo "usage: $0 ( query | dump | init | makeroot | copyto | copyfrom )"
+    cat <<EOF
+
+   -q  | -query                           - Permet de lancer la commande mysql (placez vos paramètres à la suite)
+   -i  | -init                            - Initialisation de la base
+   -rp | -rootpassword                    - Réglage du mot de passe root (passé en paramètre)
+   -d  | -dump                            - Permet de lancer la commande mysqldump (placez vos parametres à la suite)
+   -b  | -backup                          - Équivalent de dump mais sans dumper les tables systèmes
+   -bc | -backup-cron [install|uninstall] - (Dés)installation d'un script de sauvegarde mysql quotidien en crontab
+   -mr | -makeroot                        - Permet de donner les droits de connexion à un hostname passé en paramètre
+   -t  | -copyto                          - Copie d'une ou de toutes les bases sur un autre serveur 
+   -f  | -copyfrom                        - Récupération d'une ou de toutes les bases venant d'un autre serveur
+
+EOF
+        exit 1
+    ;;
+esac
+
+exit 0

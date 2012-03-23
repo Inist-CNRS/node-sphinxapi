@@ -1,0 +1,5 @@
+# modification du PATH locale pour mettre a disposition les chemins vers des executables locaux
+export PATH="<?php echo getenv('APPNAME_HOME') ?>/usr/sbin:<?php echo getenv('APPNAME_HOME') ?>/usr/bin:<?php echo getenv('APPNAME_HOME') ?>/bin:$PATH"
+
+# chargement des variables d'environnement de pkgi pour qu'elles soient à disposition des différents modules
+. <?php echo getenv('APPNAME_ENV_FILE_PATH') ?> 
