@@ -1,6 +1,6 @@
 <?php
 
-require_once '../others/sphinxapi.php';
+require_once './others/sphinxapi.php';
 
 $cl = new SphinxClient();
 $r = $cl->AddQuery('test');
