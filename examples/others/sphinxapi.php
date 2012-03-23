@@ -527,7 +527,10 @@ class SphinxClient
 
 
 	function _Send ( $handle, $data, $length )
-	{
+    {
+//        static $i = 0;
+//        if (!$i) $i = 1;
+//        else echo bin2hex($data).PHP_EOL;
 		if ( feof($handle) || fwrite ( $handle, $data, $length ) !== $length )
 		{
 			$this->_error = 'connection unexpectedly closed (timed out?)';

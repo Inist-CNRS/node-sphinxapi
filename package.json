@@ -18,7 +18,8 @@
         "url": "https://github.com/touv/sphinxapi.git"
     },
     "dependencies": {
-        "bufferpack": ">=0.0.6"
+        "bufferpack": ">=0.0.6",
+        "put": ""
     },
     "devDependencies": {
         "nodeunit": ">=0.7.3"
