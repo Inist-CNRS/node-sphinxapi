@@ -1,4 +1,4 @@
-// #!/usr/bin/env node
+#!/usr/bin/env node
 
 var SphinxClient = require ("../lib/sphinxapi.js"),
 	assert = require('assert');
