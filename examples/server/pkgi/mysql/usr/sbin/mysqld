@@ -1,0 +1,3 @@
+#!/bin/sh
+#!/bin/sh
+/usr/sbin/mysqld --defaults-file=<?php echo getenv('APPNAME_HOME') ?>/etc/mysql/my.cnf $*

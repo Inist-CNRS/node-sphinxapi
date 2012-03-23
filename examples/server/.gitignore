@@ -1,0 +1,15 @@
+pkgi.env
+.pkgi
+bin
+etc
+tmp
+usr/bin/
+usr/etc/
+usr/lib/
+usr/sbin/
+var/cache/
+var/lib/
+var/lock/
+var/log/
+var/run/
+
