@@ -26,3 +26,13 @@ $ ./usr/bin/search test
 $ cd ..
 $ DEBUG=* node ./status.js
 
+
+== problems
+
+Try :
+
+mkdir -p ./var/run/mysqld/
+mkdir -p ./var/log/mysql/
+mkdir -p ./var/lib/sphinx/
+mkdir -p ./var/log/sphinx/
+mkdir -p ./var/run/searchd/
