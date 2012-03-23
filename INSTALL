@@ -1,0 +1,28 @@
+
+== Install Sphinx packages
+
+=== Depot
+
+$ sudo apt-get install mysql-server sphinxsearch
+
+=== Last package 
+
+$ wget http://sphinxsearch.com/files/sphinxsearch_2.0.4-oneric_amd64.deb
+$ sudo dpkg -i sphinxsearch_2.0.4-oneric_amd64.deb
+
+
+== Run examples
+
+$ npm install -d
+$ cd examples
+$ cd server
+$ ./pkgi/build
+$ ./bin/pkgi-mysqltools -i
+$ ./etc/init.d/mysql start
+$ echo "CREATE DATABASE test; CONNECT test; SOURCE /usr/share/doc/sphinxsearch/example-conf/example.sql;" | ./bin/pkgi-mysqltools -q
+$ usr/bin/indexer --all
+$ ./etc/init.d/searchd start
+$ ./usr/bin/search test
+$ cd ..
+$ DEBUG=* node ./status.js
+
