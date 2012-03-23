@@ -24,6 +24,7 @@ $ usr/bin/indexer --all
 $ ./etc/init.d/searchd start
 $ ./usr/bin/search test
 $ cd ..
+$ npm install -d
 $ DEBUG=* node ./status.js
 
 
