@@ -46,8 +46,8 @@ cl.Query('test', function(err, result) {
 
 from the official documentation : http://sphinxsearch.com/docs/current.html#api-reference
 
-### ![Porting Status](./raw/master/rouge.png) GetLastError() 
-### ![Porting Status](./raw/master/rouge.png) GetLastWarning() 
+### ![Porting Status](./raw/master/vert.png) GetLastError() 
+### ![Porting Status](./raw/master/vert.png) GetLastWarning() 
 ### ![Porting Status](./raw/master/vert.png) SetServer (host, port) 
 ### ![Porting Status](./raw/master/vert.png) SetConnectTimeout (timeout) 
 ### ![Porting Status](./raw/master/vert.png) SetLimits (offset, limit, maxmatches, cutoff) 
@@ -78,8 +78,8 @@ from the official documentation : http://sphinxsearch.com/docs/current.html#api-
 ### ![Porting Status](./raw/master/vert.png) Status (fn) 
 ### ![Porting Status](./raw/master/rouge.png) Open () 
 ### ![Porting Status](./raw/master/rouge.png) Close () 
-### ![Porting Status](./raw/master/rouge.png) EscapeString (string)
-### ![Porting Status](./raw/master/rouge.png) FlushAttributes () 
+### ![Porting Status](./raw/master/roug.png) EscapeString (string)
+### ![Porting Status](./raw/master/vert.png) FlushAttributes () 
 
 
 # Also
