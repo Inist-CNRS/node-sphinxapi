@@ -28,7 +28,7 @@ $ npm install -d
 $ DEBUG=* node ./status.js
 
 
-== problems
+=== problems
 
 Try :
 
@@ -37,3 +37,9 @@ mkdir -p ./var/log/mysql/
 mkdir -p ./var/lib/sphinx/
 mkdir -p ./var/log/sphinx/
 mkdir -p ./var/run/searchd/
+
+Mysql don't start :
+
+try to stop apparmor, cf. http://www.pkgi.net/features/apparmor
+
+
