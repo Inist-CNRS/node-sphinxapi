@@ -7,7 +7,9 @@ This implementation is based on the Python Official Sphinx Client.
 
 # Installation
 
-coming soon ...
+With [npm](http://npmjs.org) do:
+
+    $ npm install sphinxapi
 
 
 # Examples
