@@ -46,7 +46,7 @@ cl.Query('test', function(err, result) {
 
 from the official documentation : http://sphinxsearch.com/docs/current.html#api-reference
 
-### ![Porting Status](./blob/master/vert.png?raw=true) GetLastError() 
+### ![Porting Status](https://github.com/lindory-project/node-sphinxapi/raw/master/vert.png) GetLastError() 
 ### ![Porting Status](./blob/master/vert.png?raw=true) GetLastWarning() 
 ### ![Porting Status](./blob/master/vert.png?raw=true) SetServer (host, port) 
 ### ![Porting Status](./blob/master/vert.png?raw=true) SetConnectTimeout (timeout) 
