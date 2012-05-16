@@ -89,5 +89,5 @@ from the official documentation : http://sphinxsearch.com/docs/current.html#api-
 
 # License
 
-[MIT/X11](./LICENSE)
+[MIT/X11](./blob/master/LICENSE)
 
