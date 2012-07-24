@@ -1,6 +1,6 @@
 {
     "name": "sphinxapi",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "author": "Nicolas Thouvenin <nthouvenin@gmail.com>",
     "contributors": [],
     "description": "Native javascript implementation of the standard Sphinx API",
@@ -11,7 +11,7 @@
         "search"
     ],
     "homepage": "http://github.com/lindory-project/node-sphinxapi",
-    "main": "./sphinxapi.js",
+    "main": "./index.js",
     "repository": {
         "type": "git",
         "url": "https://github.com/lindory-project/sphinxapi.git"
