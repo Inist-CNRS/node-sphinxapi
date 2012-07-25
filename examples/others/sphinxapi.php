@@ -446,7 +446,7 @@ class SphinxClient
 		$this->_max_id		= 0;
 		$this->_filters		= array ();
 		$this->_groupby		= "";
-		$this->_groupfunc	= SPH_GROUPBY_DAY;
+		$this->_groupfunc	= SPH_GROUPBY_YEAR;
 		$this->_groupsort	= "@group desc";
 		$this->_groupdistinct= "";
 		$this->_maxmatches	= 1000;
@@ -528,9 +528,9 @@ class SphinxClient
 
 	function _Send ( $handle, $data, $length )
     {
-//        static $i = 0;
-//        if (!$i) $i = 1;
-//        else echo bin2hex($data).PHP_EOL;
+        static $i = 0;
+        if (!$i) $i = 1;
+        else echo bin2hex($data).PHP_EOL;
 		if ( feof($handle) || fwrite ( $handle, $data, $length ) !== $length )
 		{
 			$this->_error = 'connection unexpectedly closed (timed out?)';
