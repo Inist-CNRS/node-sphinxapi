@@ -1,6 +1,6 @@
 {
     "name": "sphinxapi",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "author": "Nicolas Thouvenin <nthouvenin@gmail.com>",
     "contributors": [],
     "description": "Native javascript implementation of the standard Sphinx API",
