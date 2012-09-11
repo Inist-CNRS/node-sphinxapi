@@ -1,7 +1,0 @@
-#!/bin/sh
-#!/bin/sh
-if [ "x$1" = "x" -o "x$1" = "x-h" -o "x$1" = "x--help" ]; then
-	exec <?php echo getenv('APPNAME_SPHINX_HOME') ?>/bin/spelldump
-else 
-	exec <?php echo getenv('APPNAME_SPHINX_HOME') ?>/bin/spelldump -c <?php echo getenv('APPNAME_HOME') ?>/etc/sphinx/sphinx.conf $*
-fi

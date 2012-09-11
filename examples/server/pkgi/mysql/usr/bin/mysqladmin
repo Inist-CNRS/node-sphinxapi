@@ -1,2 +1,0 @@
-<?php echo '#!/bin/bash'; ?> 
-/usr/bin/mysqladmin --defaults-file=<?php echo getenv('APPNAME_HOME') ?>/etc/mysql/debian.cnf $*
