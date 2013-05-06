@@ -5,6 +5,12 @@ implementation. It's also respects NodeJS code convention.
 
 This implementation is based on the Python Official Sphinx Client. 
 
+## Contributors
+
+  * [Nicolas Thouvenin](https://github.com/touv) 
+  * [Alexey Gordeyev](https://github.com/biggora)
+  * [johnmarkg](https://github.com/johnmarkg)
+
 # Installation
 
 With [npm](http://npmjs.org) do:
@@ -62,6 +68,7 @@ from the official documentation : http://sphinxsearch.com/docs/current.html#api-
 ### ![Porting Status](https://github.com/touv/node-sphinxapi/raw/master/vert.png) SetIndexWeights (weights) 
 ### ![Porting Status](https://github.com/touv/node-sphinxapi/raw/master/vert.png) SetIDRange (minid, maxid) 
 ### ![Porting Status](https://github.com/touv/node-sphinxapi/raw/master/vert.png) SetFilter (attribute, values, exclude) 
+### ![Porting Status](https://github.com/touv/node-sphinxapi/raw/master/vert.png) SetFilterRange (attribute, min, max, exclude) 
 ### ![Porting Status](https://github.com/touv/node-sphinxapi/raw/master/vert.png) SetGeoAnchor (attrlat, attrlong, latitude, longitude) 
 ### ![Porting Status](https://github.com/touv/node-sphinxapi/raw/master/vert.png) SetGroupBy (attribute, func, groupsort ) 
 ### ![Porting Status](https://github.com/touv/node-sphinxapi/raw/master/vert.png) SetGroupDistinct (attribute) 

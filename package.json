@@ -1,8 +1,17 @@
 {
     "name": "sphinxapi",
-    "version": "1.0.7",
+    "version": "1.0.8",
     "author": "Nicolas Thouvenin <nthouvenin@gmail.com>",
-    "contributors": [],
+    "contributors": [
+      {
+        "name": "Alexey Gordeyev",
+        "url": "https://github.com/biggora"
+      },
+      {
+        "name": "johnmarkg",
+        "url": "https://github.com/johnmarkg"
+      }
+    ],
     "description": "Native javascript implementation of the standard Sphinx API",
     "tags": [
         "api",
