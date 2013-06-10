@@ -10,6 +10,7 @@ This implementation is based on the Python Official Sphinx Client.
   * [Nicolas Thouvenin](https://github.com/touv) 
   * [Alexey Gordeyev](https://github.com/biggora)
   * [johnmarkg](https://github.com/johnmarkg)
+  * [Max Devils](https://github.com/mdevils)
 
 # Installation
 
@@ -81,7 +82,7 @@ from the official documentation : http://sphinxsearch.com/docs/current.html#api-
 ### ![Porting Status](https://github.com/touv/node-sphinxapi/raw/master/vert.png) Query (query, index, comment, fn) 
 ### ![Porting Status](https://github.com/touv/node-sphinxapi/raw/master/vert.png) AddQuery (query, index, comment) 
 ### ![Porting Status](https://github.com/touv/node-sphinxapi/raw/master/vert.png) RunQueries (fn) 
-### ![Porting Status](https://github.com/touv/node-sphinxapi/raw/master/rouge.png) BuildExcerpts (docs, index, words, opts) 
+### ![Porting Status](https://github.com/touv/node-sphinxapi/raw/master/vert.png) BuildExcerpts (docs, index, words, opts) 
 ### ![Porting Status](https://github.com/touv/node-sphinxapi/raw/master/rouge.png) UpdateAttributes (index, attrs, values, mva) 
 ### ![Porting Status](https://github.com/touv/node-sphinxapi/raw/master/rouge.png) BuildKeywords (query, index, hits ) 
 ### ![Porting Status](https://github.com/touv/node-sphinxapi/raw/master/vert.png) Status (fn) 
