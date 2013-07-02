@@ -11,6 +11,7 @@ This implementation is based on the Python Official Sphinx Client.
   * [Alexey Gordeyev](https://github.com/biggora)
   * [johnmarkg](https://github.com/johnmarkg)
   * [Max Devils](https://github.com/mdevils)
+  * [adamastern](https://github.com/adamastern)
 
 # Installation
 
