@@ -100,3 +100,7 @@ from the official documentation : http://sphinxsearch.com/docs/current.html#api-
 
 [MIT/X11](./blob/master/LICENSE)
 
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/touv/node-sphinxapi/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
