@@ -1,44 +1,44 @@
 {
-    "name": "sphinxapi",
-    "version": "1.1.1",
-    "author": "Nicolas Thouvenin <nthouvenin@gmail.com>",
-    "contributors": [
-      {
-        "name": "Alexey Gordeyev",
-        "url": "https://github.com/biggora"
-      },
-      {
-        "name": "johnmarkg",
-        "url": "https://github.com/johnmarkg"
-      },
-      {
-        "name": "Max Devils",
-        "url": "https://github.com/mdevils"
-      },
-	  {
-		  "url": "https://github.com/senxation"
-	  }
-    ],
-    "description": "Native javascript implementation of the standard Sphinx API",
-    "tags": [
-        "api",
-        "client",
-        "sphinx",
-        "search"
-    ],
-    "homepage": "http://github.com/Inist-CNRS/node-sphinxapi",
-    "main": "./index.js",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/Inist-CNRS/sphinxapi.git"
+  "name": "sphinxapi",
+  "version": "1.2.0",
+  "author": "Nicolas Thouvenin <nthouvenin@gmail.com>",
+  "contributors": [
+    {
+      "name": "Alexey Gordeyev",
+      "url": "https://github.com/biggora"
     },
-    "dependencies": {
-        "bufferpack": ">=0.0.6",
-        "put": "",
-        "debug": ">=0.5.0"
+    {
+      "name": "johnmarkg",
+      "url": "https://github.com/johnmarkg"
     },
-    "license": "MIT",
-    "engines": {
-        "node": ">=0.6.4"
+    {
+      "name": "Max Devils",
+      "url": "https://github.com/mdevils"
+    },
+    {
+      "url": "https://github.com/senxation"
     }
+  ],
+  "description": "Native javascript implementation of the standard Sphinx API",
+  "tags": [
+    "api",
+    "client",
+    "sphinx",
+    "search"
+  ],
+  "homepage": "http://github.com/Inist-CNRS/node-sphinxapi",
+  "main": "./index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Inist-CNRS/sphinxapi.git"
+  },
+  "dependencies": {
+    "bufferpack": ">=0.0.6",
+    "put": "",
+    "debug": ">=0.5.0"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=0.6.4"
+  }
 }
