@@ -30,7 +30,7 @@
   "main": "./index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Inist-CNRS/sphinxapi.git"
+    "url": "https://github.com/Inist-CNRS/node-sphinxapi.git"
   },
   "dependencies": {
     "bufferpack": ">=0.0.6",

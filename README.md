@@ -13,6 +13,7 @@ This implementation is based on the Python Official Sphinx Client.
   * [Max Devils](https://github.com/mdevils)
   * [adamastern](https://github.com/adamastern)
   * [Sanghyuck Lee](https://github.com/shlee322)
+  * [senxation](https://github.com/senxation)
 
 # Installation
 
