@@ -1,5 +1,7 @@
 # Sphinx Search Client for NodeJS
 
+> See [ITPatrol repository] (https://github.com/itpatrol/node-sphinxapi) for the latest developments.
+
 It's native javascript implementation of the standard Sphinx API. The API is totaly similar with the others API clients 
 implementation. It's also respects NodeJS code convention.
 
